@@ -168,8 +168,8 @@ function Sidebar(props: Props) {
                 <AppBar
                     position='fixed'
                     sx={{
-                        width: { md: `calc(100% - ${drawerWidth}px)` },
-                        ml: { md: `${drawerWidth}px` },
+                        width: { desktop: `calc(100% - ${drawerWidth}px)` },
+                        ml: { desktop: `${drawerWidth}px` },
                     }}
                 >
                     <IconButton
@@ -179,7 +179,7 @@ function Sidebar(props: Props) {
                         onClick={handleDrawerToggle}
                         sx={{
                             mr: 2,
-                            display: { md: 'none' },
+                            display: { desktop: 'none' },
                             maxWidth: '40px',
                             margin: 'auto',
                         }}
@@ -190,8 +190,8 @@ function Sidebar(props: Props) {
                 <Box
                     component='nav'
                     sx={{
-                        width: { sm: drawerWidth },
-                        flexShrink: { sm: 0 },
+                        width: { desktop: drawerWidth },
+                        flexShrink: { desktop: 0 },
                     }}
                     aria-label='mailbox folders'
                 >
@@ -202,10 +202,10 @@ function Sidebar(props: Props) {
                         onTransitionEnd={handleDrawerTransitionEnd}
                         onClose={handleDrawerClose}
                         ModalProps={{
-                            keepMounted: true, // Better open performance on mobile.
+                            keepMounted: true,
                         }}
                         sx={{
-                            display: { xs: 'block', md: 'none' },
+                            display: { mobile: 'block', desktop: 'none' },
                             '& .MuiDrawer-paper': {
                                 boxSizing: 'border-box',
                                 width: drawerWidth,
@@ -217,7 +217,7 @@ function Sidebar(props: Props) {
                     <Drawer
                         variant='permanent'
                         sx={{
-                            display: { xs: 'none', md: 'block' },
+                            display: { mobile: 'none', desktop: 'block' },
                             '& .MuiDrawer-paper': {
                                 boxSizing: 'border-box',
                                 width: drawerWidth,
