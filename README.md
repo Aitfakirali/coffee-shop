@@ -1,50 +1,21 @@
-# React + TypeScript + Vite
+# README
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Approach
 
-Currently, two official plugins are available:
+-   I have created the two blocks (popular rewards and loyal customers) because these two blocks were easy and fast to create, what i struggled with was the detail statistics block with the chart, i have never used material UI so i had to learn how to customize the chart.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-   For api part i create the easy crud apis first, for example managing the rewards (CRUD), what i did was i created a many to many relationship with customer table and rewards table, then later i needed to have the created_at column butI cannot do it by many to many relationship, so i created another table which contains the id of rewards and customers, and the created_at column.
 
-## Expanding the ESLint configuration
+-   one thing that i didn't worked on was the redeemed points, it is static for the moment, i forgot to ask you about it, it was my bad
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Risks
 
-- Configure the top-level `parserOptions` property like this:
+The only risk that i can seee if when the backend service is down, there is now way we could get the data from the frontend, but we can easily show a maintenance page. to inform the user that the service is down.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+-   But what if not all the apis are down, in that case we can use error boundary to wrap each block with, and show a message to the user that this block or the rewards service is down.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Technical Documentation
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+-   I have created the uml diagram to show the relationship between the tables.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+![alt text](./public/uml-diagram.png)

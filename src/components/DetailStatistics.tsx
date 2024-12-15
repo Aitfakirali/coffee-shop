@@ -4,34 +4,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useGetPointsForCurrentWeekQuery } from '../store/reward';
 import { LineChart } from '@mui/x-charts/LineChart';
-import { useEffect, useRef, useState } from 'react';
-import { useTheme } from '@mui/material';
 import { useGetSalesCurrentMonthQuery } from '../store/product';
-
-const pData = [2400, 1398, 9800, 3908, 4800, 3800, 4300, 10000, 10000, 200];
-
-const useResize = () => {
-    const [chartWidth, setChartWidth] = useState(0);
-    const [chartHeight, setChartHeight] = useState(0);
-
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        function handleResize() {
-            if (containerRef.current) {
-                const { width, height } =
-                    containerRef.current.getBoundingClientRect();
-                setChartWidth(width);
-                setChartHeight(height);
-            }
-        }
-        handleResize();
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    return { containerRef, chartHeight, chartWidth };
-};
+import { useResize } from '../hooks';
 
 function DetailStatistics() {
     const { data: pointsForCurrentWeek } = useGetPointsForCurrentWeekQuery();
