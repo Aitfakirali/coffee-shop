@@ -11,13 +11,14 @@ function CategoriesBlock() {
                 Category
             </Typography>
 
-            <Grid2 container spacing={5}>
+            <Grid2 container spacing={3} sx={{ placeContent: 'start' }}>
                 {data?.map((item) => (
                     <Grid2
                         key={item.categoryId}
                         size={{
                             mobile: 12,
                             tablet: 4,
+                            laptop: 3.5,
                         }}
                     >
                         <Category key={item.categoryId} {...item} />

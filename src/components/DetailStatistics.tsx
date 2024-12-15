@@ -3,14 +3,48 @@ import Grid2 from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useGetPointsForCurrentWeekQuery } from '../store/reward';
+import { LineChart } from '@mui/x-charts/LineChart';
+import { useEffect, useRef, useState } from 'react';
+import { useTheme } from '@mui/material';
+import { useGetSalesCurrentMonthQuery } from '../store/product';
+
+const pData = [2400, 1398, 9800, 3908, 4800, 3800, 4300, 10000, 10000, 200];
+
+const useResize = () => {
+    const [chartWidth, setChartWidth] = useState(0);
+    const [chartHeight, setChartHeight] = useState(0);
+
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        function handleResize() {
+            if (containerRef.current) {
+                const { width, height } =
+                    containerRef.current.getBoundingClientRect();
+                setChartWidth(width);
+                setChartHeight(height);
+            }
+        }
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return { containerRef, chartHeight, chartWidth };
+};
 
 function DetailStatistics() {
     const { data: pointsForCurrentWeek } = useGetPointsForCurrentWeekQuery();
+    const { data: salesCurrentMonth } = useGetSalesCurrentMonthQuery();
+
+    const { containerRef, chartHeight, chartWidth } = useResize();
+
+    console.log(salesCurrentMonth?.map((sale) => sale.sales));
 
     return (
         <Box
             sx={{
-                backgroundColor: 'primary.light',
+                backgroundColor: '#25A956',
                 borderRadius: '20px',
                 width: '100%',
                 padding: '20px',
@@ -30,7 +64,7 @@ function DetailStatistics() {
                     <Box
                         sx={{
                             width: '100%',
-                            height: 120,
+                            height: '50%',
                             backgroundColor: 'secondary.main',
                             borderRadius: '10px',
                             display: 'flex',
@@ -91,7 +125,7 @@ function DetailStatistics() {
                     <Box
                         sx={{
                             width: '100%',
-                            height: 120,
+                            height: '50%',
                             backgroundColor: 'secondary.main',
                             borderRadius: '10px',
                             display: 'flex',
@@ -160,15 +194,99 @@ function DetailStatistics() {
                         tablet: 6,
                         desktop: 8,
                     }}
+                    ref={containerRef}
                 >
                     <Box
                         sx={{
                             width: '100%',
-                            height: '100%',
+                            height: '300px',
                             backgroundColor: 'secondary.main',
                             borderRadius: '10px',
+                            position: 'relative',
                         }}
-                    ></Box>
+                    >
+                        <Box
+                            padding={'20px'}
+                            position={'absolute'}
+                            top={'-10px'}
+                            display={'flex'}
+                            justifyContent={'center'}
+                            gap={'20px'}
+                        >
+                            <Typography variant='subtitle1' fontWeight={600}>
+                                Sales per month
+                            </Typography>
+                        </Box>
+                        {salesCurrentMonth && (
+                            <LineChart
+                                width={chartWidth}
+                                height={chartHeight}
+                                margin={{
+                                    top: 60,
+                                    right: 10,
+                                    bottom: 40,
+                                    left: 10,
+                                }}
+                                series={[
+                                    {
+                                        data: salesCurrentMonth.map((sale) =>
+                                            Number(sale.sales)
+                                        ),
+                                        showMark: false,
+                                    },
+                                ]}
+                                xAxis={[
+                                    {
+                                        data: salesCurrentMonth.map((sale) => {
+                                            const date = new Date(sale.date);
+
+                                            return date.getDate();
+                                        }),
+                                        scaleType: 'band',
+                                        disableLine: true,
+                                        disableTicks: true,
+                                        hideTooltip: true,
+                                        valueFormatter: (val) => val.toString(),
+                                        slotProps: {
+                                            axisLine: {
+                                                strokeWidth: 10,
+                                            },
+                                        },
+                                    },
+                                ]}
+                                yAxis={[
+                                    {
+                                        disableLine: true,
+                                        disableTicks: true,
+                                        hideTooltip: true,
+                                        valueFormatter: () => '',
+                                        slotProps: {
+                                            axisTickLabel: {
+                                                fontFamily: 'Arial',
+                                                fontSize: 20,
+                                                fontWeight: '600',
+                                            },
+                                        },
+                                    },
+                                ]}
+                                colors={['#A4FBBD']}
+                                axisHighlight={{
+                                    x: 'band',
+                                }}
+                                sx={{
+                                    width: '100%',
+                                    margin: 'auto',
+                                    flex: 1,
+                                    '& .MuiLineElement-root': {
+                                        strokeWidth: 5,
+                                        overflow: 'visible',
+                                    },
+                                }}
+                                // onMouseMove={(point) => setHoveredIndex(point?.index ?? null)}
+                                // onMouseLeave={() => setHoveredIndex(null)}
+                            />
+                        )}
+                    </Box>
                 </Grid2>
             </Grid2>
         </Box>

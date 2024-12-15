@@ -47,7 +47,7 @@ const menus = [
         href: '#',
     },
     {
-        title: 'statistiques',
+        title: 'Statistics',
         icon: <SignalCellularAltOutlinedIcon />,
         href: '#',
     },
