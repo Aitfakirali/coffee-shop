@@ -13,8 +13,6 @@ function DetailStatistics() {
 
     const { containerRef, chartHeight, chartWidth } = useResize();
 
-    console.log(salesCurrentMonth?.map((sale) => sale.sales));
-
     return (
         <Box
             sx={{
@@ -220,7 +218,8 @@ function DetailStatistics() {
                                         disableLine: true,
                                         disableTicks: true,
                                         hideTooltip: true,
-                                        valueFormatter: (val) => val.toString(),
+                                        valueFormatter: (val) =>
+                                            val.toString().padStart(2, '0'),
                                         slotProps: {
                                             axisLine: {
                                                 strokeWidth: 10,
