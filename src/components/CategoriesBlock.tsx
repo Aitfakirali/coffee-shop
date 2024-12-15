@@ -1,11 +1,12 @@
-import { Grid2, Typography } from '@mui/material';
+import Grid2 from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { useGetCategoriesQuery } from '../store/category';
 
 function CategoriesBlock() {
     const { data } = useGetCategoriesQuery('');
     return (
-        <Box gap={4} flexDirection={'column'} display={'flex'}>
+        <Box gap={2} flexDirection={'column'} display={'flex'}>
             <Typography variant='h5' fontFamily={'monospace'} fontWeight={600}>
                 Category
             </Typography>

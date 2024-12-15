@@ -54,6 +54,9 @@ export const rewardsApi = createApi({
             }),
             invalidatesTags: ['rewards'],
         }),
+        getPointsForCurrentWeek: builder.query<{ points: number }[], void>({
+            query: () => 'rewards/rewarded_points',
+        }),
     }),
 });
 
@@ -63,4 +66,5 @@ export const {
     useUpdateRewardMutation,
     useDeleteRewardMutation,
     useGetPopularRewardsQuery,
+    useGetPointsForCurrentWeekQuery,
 } = rewardsApi;

@@ -14,8 +14,11 @@ import Typography from '@mui/material/Typography';
 import LogoutIcon from '@mui/icons-material/Logout';
 import HomeIcon from '@mui/icons-material/Home';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import { Avatar, Button } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
 import { useLocation } from 'react-router-dom';
+import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import SignalCellularAltOutlinedIcon from '@mui/icons-material/SignalCellularAltOutlined';
 
 const drawerWidth = 240;
 
@@ -37,6 +40,16 @@ const menus = [
         title: 'Rewards',
         icon: <DashboardIcon />,
         href: '/rewards',
+    },
+    {
+        title: 'Order history',
+        icon: <FavoriteOutlinedIcon />,
+        href: '#',
+    },
+    {
+        title: 'statistiques',
+        icon: <SignalCellularAltOutlinedIcon />,
+        href: '#',
     },
 ];
 
@@ -99,32 +112,60 @@ function Sidebar(props: Props) {
                 </Typography>
                 <Typography>Owner</Typography>
             </Box>
-            <List>
+            <List sx={{ gap: '10px' }}>
                 {menus.map(({ title, icon, href }, index) => (
                     <ListItem
                         key={index}
                         sx={{
-                            borderRadius: '50%',
+                            padding: '0px',
+                            paddingInline: '20px',
+                            paddingBlock: '5px',
                         }}
                     >
                         <ListItemButton
                             sx={{
                                 backgroundColor:
                                     location.pathname == href
-                                        ? 'primary'
+                                        ? 'primary.main'
                                         : 'transparent',
-                            }}
-                            color='primary'
-                            style={{
-                                backgroundColor:
+                                color:
                                     location.pathname == href
-                                        ? 'primary'
-                                        : 'transparent',
+                                        ? 'white'
+                                        : 'black',
+                                borderRadius: '30px',
+                                '&:hover': {
+                                    color: 'white',
+                                    backgroundColor: 'primary.light',
+                                    backgroundOpacity: '.2',
+                                },
+                                '&:hover svg': {
+                                    color:
+                                        location.pathname == href
+                                            ? 'black'
+                                            : 'white',
+                                },
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '20px',
+                                padding: '5px',
                             }}
                             component='a'
                             href={href}
                         >
-                            <ListItemIcon color='white'>{icon}</ListItemIcon>
+                            <ListItemIcon
+                                sx={{
+                                    backgroundColor:
+                                        location.pathname == href
+                                            ? 'white'
+                                            : 'transparent',
+                                    borderRadius: '50%',
+                                    minWidth: 'fit-content',
+                                    padding: '5px',
+                                }}
+                                color='white'
+                            >
+                                {icon}
+                            </ListItemIcon>
                             <ListItemText primary={title} />
                         </ListItemButton>
                     </ListItem>

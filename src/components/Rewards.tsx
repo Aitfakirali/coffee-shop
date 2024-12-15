@@ -1,4 +1,4 @@
-import { Grid2 } from '@mui/material';
+import Grid2 from '@mui/material/Grid2';
 import { TReward, useGetRewardsQuery } from '../store/reward';
 import { Reward } from './Reward';
 

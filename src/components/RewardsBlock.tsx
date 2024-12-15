@@ -1,6 +1,7 @@
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Button, Link } from '@mui/material';
+import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import {
     TReward,
@@ -74,7 +75,7 @@ function RewardsBlock() {
     };
 
     return (
-        <Box gap={4} flexDirection={'column'} display={'flex'}>
+        <Box gap={2} flexDirection={'column'} display={'flex'}>
             <Box
                 display={'flex'}
                 justifyContent={'space-between'}
@@ -101,7 +102,12 @@ function RewardsBlock() {
                         Manage Rewards
                     </Typography>
 
-                    <Link href='#' underline='none' fontSize={16}>
+                    <Link
+                        href='#'
+                        underline='none'
+                        fontSize={16}
+                        fontWeight={600}
+                    >
                         View All
                     </Link>
                 </Box>
